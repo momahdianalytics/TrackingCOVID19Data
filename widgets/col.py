@@ -3,33 +3,37 @@ from PySide6 import QtWidgets as qw
 from utils import *
 
 
-def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin:Margin=None) -> qw.QVBoxLayout:
+def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin:Margin=None) -> qw.QWidget:
 
-    vbox = qw.QVBoxLayout()
+    layout = qw.QVBoxLayout()
+    widget = qw.QWidget()
+    widget.setLayout(layout)
 
     if top_stretch:
-        vbox.addStretch()
+        layout.addStretch()
 
-    for widget in args:
-        if isinstance(widget, qw.QWidget):
+    for item in args:
+        if isinstance(item, qw.QWidget):
             if alignment:
-                vbox.addWidget(widget, alignment=alignment)
+                layout.addWidget(item, alignment=alignment)
             else:
-                vbox.addWidget(widget)
-        if isinstance(widget, qw.QLayout):
-            vbox.addLayout(widget)
-
+                layout.addWidget(item)
+        elif isinstance(item, qw.QLayout):
+                    layout.addLayout(item)
+        else:
+            raise ValueError(f"Unsupported item type: {type(item)}")
+        
     if bottom_stretch:
-        vbox.addStretch()
+        layout.addStretch()
 
     if spacing:
-        vbox.setSpacing(spacing)
+        layout.setSpacing(spacing)
 
     if margin:
         if margin.all:
-            vbox.setContentsMargins(margin.all, margin.all, margin.all, margin.all)
+            widget.setContentsMargins(margin.all, margin.all, margin.all, margin.all)
         else:
-            vbox.setContentsMargins(*margin)
+            widget.setContentsMargins(*margin)
 
-    return vbox
+    return widget
 

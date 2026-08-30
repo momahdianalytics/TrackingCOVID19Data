@@ -8,6 +8,9 @@ LEFT = qc.Qt.AlignLeft
 TOP = qc.Qt.AlignTop
 BOTTOM = qc.Qt.AlignBottom
 
+CENTER_COL = qc.Qt.AlignVCenter
+CENTER_ROW = qc.Qt.AlignHCenter
+
 
 @dataclass
 class Style:

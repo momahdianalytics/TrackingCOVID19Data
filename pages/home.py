@@ -4,13 +4,14 @@ from utils import *
 import widgets as wg
 
 
-layout = wg.col(
-    qw.QLabel("Hello World!"),
-)
+def home():
 
-widget = wg.widget(
-    layout=layout,
-    name="Home"
-)
+    widget = wg.col(
+        qw.QLabel("Hello World!"),
+        margin=Margin(all=5),
+        alignment=CENTER
+    )
 
-set_style(widget, Style(font_size="20px"))
+    set_style(widget, Style(font_size="20px"))
+
+    return widget
