@@ -11,17 +11,17 @@ def grid(items:tuple[tuple[qw.QWidget]], alignment=None, spacing=None, margin:Ma
     widget = qw.QWidget()
     widget.setLayout(layout)
 
-    for i, row in enumerate(items):
-        for j, item in enumerate(row):
+    for i, col in enumerate(items):
+        for j, item in enumerate(col):
             if item is 0:
                 continue
             elif isinstance(item, qw.QWidget):
                 if alignment:
-                    layout.addWidget(item, i, j, alignment=alignment)
+                    layout.addWidget(item, j, i, alignment=alignment)
                 else:
-                    layout.addWidget(item, i, j)
+                    layout.addWidget(item, j, i)
             elif isinstance(item, qw.QLayout):
-                layout.addLayout(item, i, j)
+                layout.addLayout(item, j, i)
             else:
                 raise ValueError(f"Unsupported item type: {type(item)}")
         

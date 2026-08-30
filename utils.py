@@ -17,6 +17,13 @@ CENTER_COL = qc.Qt.AlignVCenter
 CENTER_ROW = qc.Qt.AlignHCenter
 
 
+class Color:
+    FIRST = "#0097C5"
+    SECOND = "#00465C"
+    THIRD = "#0067BB"
+    FOURTH = "#00B1A8"
+
+
 @dataclass
 class Style:
     background_color: str | None = None
