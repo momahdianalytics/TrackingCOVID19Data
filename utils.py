@@ -1,5 +1,10 @@
+import uuid
+
+from loguru import logger
+
 from dataclasses import dataclass, fields
-from PySide6 import QtCore as qc
+from PySide6 import QtCore as qc, QtWidgets as qw
+
 
 
 CENTER = qc.Qt.AlignCenter
@@ -65,5 +70,16 @@ class Margin:
     all: int | None = None
 
 
-def set_style(widget, style: Style) -> None:
+def set_style(widget:qw.QWidget, style: Style) -> None:
     widget.setStyleSheet(str(style))
+    logger.debug(f"ℹ️  Set style for {widget} to {style}")
+
+
+def set_hover(widget:qw.QWidget, style: Style) -> None:
+    old_style = widget.styleSheet()
+    if not old_style:
+        raise ValueError("Widget has no style sheet")
+    name = f"widget-{uuid.uuid4().hex}"
+    widget.setObjectName(name)
+    widget.setStyleSheet(f"{Rule(f'#{name}', old_style)} {Rule(f'#{name}:hover', style)}")
+    logger.debug(f"ℹ️  Set hover style for {widget} to {style}")

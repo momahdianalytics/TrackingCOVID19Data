@@ -6,8 +6,12 @@ import widgets as wg
 
 def home():
 
+    msg = qw.QLabel("Hello World!")
+    set_style(msg, Style(font_size="20px"))
+    set_hover(msg, Style(color="red"))
+
     widget = wg.col(
-        qw.QLabel("Hello World!"),
+        msg,
         margin=Margin(all=5),
         alignment=CENTER
     )

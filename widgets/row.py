@@ -1,6 +1,8 @@
 from PySide6 import QtWidgets as qw
+from loguru import logger
 
 
+@logger.catch
 def row(*args, alignment=None, left_stretch=None, right_stretch=None, spacing=None, margin=None) -> qw.QWidget:
 
     layout = qw.QHBoxLayout()
@@ -33,5 +35,7 @@ def row(*args, alignment=None, left_stretch=None, right_stretch=None, spacing=No
         else:
             widget.setContentsMargins(*margin)
 
+    logger.debug(f"ℹ️  Created widget: {widget} with layout: {layout}")
+    
     return widget
 

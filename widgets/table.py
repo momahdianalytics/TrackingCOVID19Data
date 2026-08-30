@@ -1,10 +1,9 @@
 from PySide6 import QtWidgets as qw
 import pandas as pd
-
-import pandas as pd
-import PySide6.QtWidgets as qw
+from loguru import logger
 
 
+@logger.catch
 def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
     table = qw.QTableWidget()
 
@@ -40,4 +39,6 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
     if size is not None:
         table.setFixedSize(*size)
 
+    logger.debug(f"ℹ️  Created widget: {table}")
+    
     return table

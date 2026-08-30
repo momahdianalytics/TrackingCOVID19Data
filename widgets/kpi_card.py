@@ -1,9 +1,12 @@
 from PySide6 import QtWidgets as qw
+from loguru import logger
+
 
 from utils import *
 from .row import row
 
 
+@logger.catch
 def kpi_card(data:tuple) -> qw.QWidget:
     widget = qw.QWidget()
 
@@ -17,5 +20,7 @@ def kpi_card(data:tuple) -> qw.QWidget:
     set_style(widget, Style(
         font_size="20px",
     ))
+    
+    logger.debug(f"ℹ️  Created widget: {widget}")
 
     return widget

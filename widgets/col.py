@@ -1,8 +1,10 @@
 from PySide6 import QtWidgets as qw
+from loguru import logger
 
 from utils import *
 
 
+@logger.catch
 def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin:Margin=None) -> qw.QWidget:
 
     layout = qw.QVBoxLayout()
@@ -35,5 +37,7 @@ def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=No
         else:
             widget.setContentsMargins(*margin)
 
+    logger.debug(f"ℹ️  Created widget: {widget} with layout: {layout}")
+    
     return widget
 

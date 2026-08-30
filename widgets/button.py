@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets as qw
+from loguru import logger
 
-
+@logger.catch
 def button(text, onclick:callable, size=None) -> qw.QPushButton:
     push_button = qw.QPushButton(
         text=text
@@ -8,4 +9,7 @@ def button(text, onclick:callable, size=None) -> qw.QPushButton:
     push_button.clicked.connect(onclick)
     if size:
         push_button.setFixedSize(*size)
+
+    logger.debug(f"ℹ️  Created widget: {push_button}")
+    
     return push_button

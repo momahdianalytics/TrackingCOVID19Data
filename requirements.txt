@@ -3,3 +3,4 @@ pandas
 matplotlib
 seaborn
 pyside6
+loguru
