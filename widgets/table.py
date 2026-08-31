@@ -1,4 +1,4 @@
-from PySide6 import QtWidgets as qw
+from PySide6 import QtWidgets as qw, QtCore as qc
 import pandas as pd
 from loguru import logger
 
@@ -14,7 +14,10 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
 
         for i, (idx, val) in enumerate(data.items()):
             tbl.setItem(i, 0, qw.QTableWidgetItem(str(idx)))
-            tbl.setItem(i, 1, qw.QTableWidgetItem(str(val)))
+            val_text = f"{val:,.0f}" if isinstance(val, (int, float)) else str(val)
+            item = qw.QTableWidgetItem(val_text)
+            item.setTextAlignment(qc.Qt.AlignRight | qc.Qt.AlignVCenter)
+            tbl.setItem(i, 1, item)
 
     elif isinstance(data, pd.DataFrame):
         tbl.setRowCount(len(data))
@@ -25,8 +28,16 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
 
         for i in range(len(data)):
             for j in range(len(data.columns)):
-                item_text = str(data.iat[i, j])
-                tbl.setItem(i, j, qw.QTableWidgetItem(item_text))
+                val = data.iat[i, j]
+                # Format numbers with thousand separators
+                if isinstance(val, (int, float)):
+                    val_text = f"{val:,.0f}"
+                    item = qw.QTableWidgetItem(val_text)
+                    item.setTextAlignment(qc.Qt.AlignRight | qc.Qt.AlignVCenter)
+                else:
+                    item = qw.QTableWidgetItem(str(val))
+                    item.setTextAlignment(qc.Qt.AlignLeft | qc.Qt.AlignVCenter)
+                tbl.setItem(i, j, item)
     else:
         raise TypeError(f"Unsupported data type: {type(data)} Only pd.DataFrame and pd.Series are supported")
 
@@ -34,6 +45,8 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
     tbl.horizontalHeader().setSectionResizeMode(qw.QHeaderView.Stretch)
     tbl.verticalHeader().setVisible(False)
     tbl.setShowGrid(False)
+    tbl.setEditTriggers(qw.QAbstractItemView.NoEditTriggers)
+    tbl.setSelectionBehavior(qw.QAbstractItemView.SelectRows)
 
     tbl.setStyleSheet("""
         QTableWidget {
@@ -42,22 +55,25 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
             border: 1px solid #E2E8F0;
             border-radius: 8px;
             color: #1E293B;
+            font-size: 13px;
             selection-background-color: #E0F2FE;
             selection-color: #0369A1;
         }
         QHeaderView::section {
             background-color: #00465C;
             color: #FFFFFF;
-            padding: 8px;
+            padding: 8px 10px;
             border: none;
             font-weight: bold;
-            font-size: 13px;
+            font-size: 12px;
         }
     """)
 
-    if size is not None:
-        tbl.setFixedSize(*size)
+    tbl.setSizePolicy(qw.QSizePolicy.Expanding, qw.QSizePolicy.Expanding)
 
-    logger.debug(f"ℹ️  Created widget: {tbl}")
+    if size is not None:
+        tbl.setMinimumSize(*size)
+
+    logger.debug(f"ℹ️  Created table widget: {tbl}")
 
     return tbl

@@ -1,6 +1,5 @@
 from PySide6 import QtWidgets as qw
 import seaborn as sns
-import matplotlib.pyplot as plt
 
 from utils import *
 import widgets as wg
@@ -8,7 +7,7 @@ from df import df
 
 
 def create_card_container(title: str, widget_content: qw.QWidget, subtitle: str = None) -> qw.QFrame:
-    """Wraps any chart or table inside a structured modern card frame with header."""
+    """Wraps any chart or table inside a structured modern card frame with expanding layout."""
     card = qw.QFrame()
     card.setStyleSheet("""
         QFrame {
@@ -17,9 +16,10 @@ def create_card_container(title: str, widget_content: qw.QWidget, subtitle: str 
             border: 1px solid #E2E8F0;
         }
     """)
+    card.setSizePolicy(qw.QSizePolicy.Expanding, qw.QSizePolicy.Expanding)
     
     header_layout = qw.QVBoxLayout()
-    header_layout.setContentsMargins(16, 14, 16, 6)
+    header_layout.setContentsMargins(18, 14, 18, 4)
     header_layout.setSpacing(2)
 
     title_label = qw.QLabel(title)
@@ -32,7 +32,7 @@ def create_card_container(title: str, widget_content: qw.QWidget, subtitle: str 
         header_layout.addWidget(sub_label)
 
     content_layout = qw.QVBoxLayout()
-    content_layout.setContentsMargins(12, 6, 12, 12)
+    content_layout.setContentsMargins(12, 4, 12, 12)
     content_layout.addWidget(widget_content)
 
     main_layout = qw.QVBoxLayout(card)
@@ -51,14 +51,12 @@ def home():
     # 2. Top 10 Deaths Data
     top_deaths = df.sort_values('Deaths', ascending=False).head(10)
     
-    # 3. Regional Aggregation by WHO Region (if available) or Recovery Rate
+    # 3. Regional Aggregation by WHO Region
     if 'WHO Region' in df.columns:
         region_data = df.groupby('WHO Region', as_index=False)[['Confirmed', 'Deaths', 'Recovered']].sum()
+        region_data = region_data.sort_values('Confirmed', ascending=False)
     else:
         region_data = df.sort_values('Recovered', ascending=False).head(10)
-
-    # 4. Top Recovery Rates Data
-    top_recovery_rate = df.sort_values('Recovered', ascending=False).head(10)
 
     # Chart 1: Top Confirmed Cases
     chart_confirmed = wg.plot(
@@ -67,7 +65,7 @@ def home():
         x='Confirmed',
         y='Country/Region',
         palette="crest",
-        size=(500, 320)
+        size=(420, 290)
     )
     card_confirmed = create_card_container(
         "Top 10 Confirmed Cases", 
@@ -82,7 +80,7 @@ def home():
         x='Deaths',
         y='Country/Region',
         palette="flare",
-        size=(500, 320)
+        size=(420, 290)
     )
     card_deaths = create_card_container(
         "Top 10 Mortality Figures", 
@@ -98,7 +96,7 @@ def home():
             x='Confirmed',
             y='WHO Region',
             palette="viridis",
-            size=(500, 320)
+            size=(420, 290)
         )
         card_region = create_card_container(
             "Regional Distribution (WHO)", 
@@ -112,7 +110,7 @@ def home():
             x='Recovered',
             y='Country/Region',
             palette="mako",
-            size=(500, 320)
+            size=(420, 290)
         )
         card_region = create_card_container(
             "Top Recoveries", 
@@ -125,7 +123,7 @@ def home():
     available_cols = [c for c in summary_cols if c in df.columns]
     table_summary = wg.table(
         df[available_cols].sort_values('Confirmed', ascending=False).head(10),
-        size=(500, 320)
+        size=(420, 290)
     )
     card_table = create_card_container(
         "Top 10 Summary Table", 
@@ -133,28 +131,31 @@ def home():
         "Direct breakdown of country figures"
     )
 
+    # Left and Right responsive columns
     left_column = wg.col(
         card_confirmed,
         card_region,
         alignment=TOP,
-        spacing=18,
-        margin=Margin(all=8)
+        spacing=16,
+        margin=Margin(all=6)
     )
+    left_column.setSizePolicy(qw.QSizePolicy.Expanding, qw.QSizePolicy.Expanding)
 
     right_column = wg.col(
         card_deaths,
         card_table,
         alignment=TOP,
-        spacing=18,
-        margin=Margin(all=8)
+        spacing=16,
+        margin=Margin(all=6)
     )
+    right_column.setSizePolicy(qw.QSizePolicy.Expanding, qw.QSizePolicy.Expanding)
 
-    # Main scrollable dashboard layout
+    # Main dashboard grid
     dashboard_layout = wg.row(
         left_column,
         right_column,
         alignment=TOP,
-        spacing=18,
+        spacing=16,
         margin=Margin(all=12),
         scrollable=True
     )
