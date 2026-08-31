@@ -1,3 +1,5 @@
+import os
+import sys
 import uuid
 
 from loguru import logger
@@ -116,3 +118,14 @@ def set_hover(widget:qw.QWidget, style: Style) -> None:
     widget.setObjectName(name)
     widget.setStyleSheet(f"{Rule(f'#{name}', old_style)} {Rule(f'#{name}:hover', style)}")
     logger.debug(f"ℹ️  Set hover style for {widget} to {style}")
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)

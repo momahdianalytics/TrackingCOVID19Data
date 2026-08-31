@@ -1,7 +1,8 @@
 import pandas as pd
 
+from utils import resource_path
 
-df = pd.read_csv('data/country_wise_latest.csv')
+df = pd.read_csv(resource_path('data/country_wise_latest.csv'))
 
 # 1. Top 10 Confirmed Cases Data
 top_confirmed = df.sort_values(
