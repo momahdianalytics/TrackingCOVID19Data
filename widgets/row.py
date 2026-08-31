@@ -33,7 +33,7 @@ def row(*args, alignment=None, left_stretch=None, right_stretch=None, spacing=No
         if margin.all:
             widget.setContentsMargins(margin.all, margin.all, margin.all, margin.all)
         else:
-            widget.setContentsMargins(*margin)
+            widget.setContentsMargins(margin.left, margin.top, margin.right, margin.bottom)
 
     if scrollable:
         # Previously this built a QScrollArea and then discarded it by

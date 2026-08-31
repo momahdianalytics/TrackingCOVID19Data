@@ -67,7 +67,7 @@ def plot(
     if kind is not None:
         plot_kwargs['kind'] = kind
 
-    func(**plot_kwargs)
+    func(**plot_kwargs, legend=legend)
 
     # Format numeric axis to K/M format instead of scientific notation (1e6)
     formatter = ticker.FuncFormatter(_human_format)
@@ -78,8 +78,11 @@ def plot(
     ax.set_xlabel(ax.get_xlabel(), fontsize=10, fontweight="600", labelpad=8)
     ax.set_ylabel(ax.get_ylabel(), fontsize=10, fontweight="600", labelpad=8)
 
-    if not legend and ax.get_legend():
-        ax.get_legend().remove()
+    if ax.get_legend():
+        ax.legend(
+            fontsize=8,
+            title_fontsize=7,
+        )
 
     # Automatically adjust margins so text is never truncated
     fig.subplots_adjust(left=0.28, right=0.96, top=0.92, bottom=0.18)

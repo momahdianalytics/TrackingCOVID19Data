@@ -17,6 +17,9 @@ CENTER_COL = qc.Qt.AlignVCenter
 CENTER_ROW = qc.Qt.AlignHCenter
 
 
+Size = qw.QSizePolicy.Policy
+
+
 class Color:
     FIRST = "#F8FAFC"
     SECOND = "#0F172A"

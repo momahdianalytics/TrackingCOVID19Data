@@ -5,7 +5,8 @@ from loguru import logger
 
 from utils import *
 import widgets as wg
-from pages.home import home
+from pages.tab_1 import tab_1
+from pages.tab_2 import tab_2
 from df import df
 
 
@@ -125,8 +126,13 @@ def main():
 
     logger.add("logs/main.log", level="DEBUG", rotation="1 MB", encoding="utf-8", enqueue=True)
 
+# ==============================================================
+# Tabs widget
+# ==============================================================
     tabs = qw.QTabWidget()
-    tabs.addTab(home(), "Home")
+    tabs.addTab(tab_1(), "Tab 1")
+    tabs.addTab(tab_2(), "Tab 2")
+# ==============================================================
 
     central_widget = wg.col(
         wg.kpi_card((

@@ -5,17 +5,24 @@ from utils import *
 
 
 @logger.catch
-def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin: Margin = None, scrollable=False) -> qw.QWidget:
+def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin: Margin = None, scrollable=False, parent=None, size_policy=None) -> qw.QWidget:
 
-    layout = qw.QVBoxLayout()
-    widget = qw.QWidget()
-    widget.setLayout(layout)
+    if parent:
+        widget = parent
+        layout = qw.QVBoxLayout(widget)
+    else:
+        layout = qw.QVBoxLayout()
+        widget = qw.QWidget()
+        widget.setLayout(layout)
+
+    layout.setContentsMargins(0, 0, 0, 0)
+    layout.setSpacing(0)
 
     if top_stretch:
         layout.addStretch()
 
     for item in args:
-        if isinstance(item, qw.QWidget):
+        if isinstance(item, (qw.QWidget, qw.QFrame)):
             if alignment:
                 layout.addWidget(item, alignment=alignment)
             else:
@@ -35,7 +42,10 @@ def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=No
         if margin.all:
             widget.setContentsMargins(margin.all, margin.all, margin.all, margin.all)
         else:
-            widget.setContentsMargins(*margin)
+            widget.setContentsMargins(margin.left, margin.top, margin.right, margin.bottom)
+
+    if size_policy:
+        widget.setSizePolicy(size_policy[0], size_policy[1])
 
     if scrollable:
         # Previously this built a QScrollArea and then discarded it by
