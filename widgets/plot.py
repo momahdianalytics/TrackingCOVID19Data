@@ -1,6 +1,7 @@
 from PySide6 import QtWidgets as qw
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import seaborn as sns
 from loguru import logger
 
 from .col import col
@@ -19,13 +20,28 @@ def plot(
     y=None,
     size=None,
 ) -> qw.QWidget:
-    # Use a standalone Figure (not plt.subplots()) so figures aren't
-    # registered in pyplot's global state and never get garbage collected.
-    fig = Figure()
+    sns.set_theme(
+        style="whitegrid",
+        rc={
+            "figure.facecolor": "#FFFFFF",
+            "axes.facecolor": "#FFFFFF",
+            "axes.edgecolor": "#E2E8F0",
+            "grid.color": "#F1F5F9",
+            "grid.linestyle": "--",
+            "text.color": "#1E293B",
+            "axes.labelcolor": "#475569",
+            "xtick.color": "#64748B",
+            "ytick.color": "#64748B",
+            "font.sans-serif": ["Segoe UI", "DejaVu Sans", "Arial"],
+        }
+    )
+
+    fig = Figure(dpi=100)
+    fig.patch.set_facecolor("#FFFFFF")
     ax = fig.add_subplot(111)
 
     if title:
-        ax.set_title(title)
+        ax.set_title(title, fontsize=12, fontweight="bold", color="#00465C", pad=12)
 
     plot_kwargs = {'ax': ax}
     if data is not None:
@@ -45,6 +61,8 @@ def plot(
 
     if not legend and ax.get_legend():
         ax.get_legend().remove()
+
+    fig.tight_layout()
 
     canvas = FigureCanvas(fig)
     widget = col(canvas)

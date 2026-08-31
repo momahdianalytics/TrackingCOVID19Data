@@ -13,26 +13,33 @@ def home():
         return wg.table_plot(
             func=sns.barplot,
             data=data,
-            title='تجربة',
+            title='Top Confirmed Cases',
             x='Confirmed',
             y='Country/Region',
-            size=(700,500)
+            palette="crest",
+            size=(520, 380)
         )
 
     left_col = wg.col(
-        *[make_chart() for _ in range(3)],
+        *[make_chart() for _ in range(2)],
         alignment=CENTER,
+        spacing=20,
+        margin=Margin(all=10)
     )
 
     right_col = wg.col(
-        *[make_chart() for _ in range(4)],
+        *[make_chart() for _ in range(2)],
         alignment=CENTER,
+        spacing=20,
+        margin=Margin(all=10)
     )
 
     widget = wg.row(
         left_col,
         right_col,
         alignment=CENTER,
+        spacing=20,
+        margin=Margin(all=10),
         scrollable=True
     )
 

@@ -16,35 +16,34 @@ def kpi_card(data: tuple) -> qw.QWidget:
         try:
             value_text = f"{value:,.0f}"
         except (ValueError, TypeError):
-            # Non-numeric KPI values (e.g. strings) previously crashed here.
             value_text = str(value)
 
         kpi_label = qw.QLabel(f"{kpi['label']}", alignment=CENTER)
         kpi_value = qw.QLabel(value_text, alignment=CENTER)
-        set_style(kpi_label, Style(
-            background_color=Color.FIRST,
-            border=f"1px solid {Color.SECOND}",
-            border_radius="5px",
-            padding="5px",
-        ))
-        set_style(kpi_value, Style(
-            background_color=Color.SECOND,
-            border=f"1px solid {Color.FIRST}",
-            border_radius="5px",
-            padding="5px",
-        ))
+
+        kpi_label.setStyleSheet(
+            "background-color: #FFFFFF; color: #475569; "
+            "font-size: 13px; font-weight: 600; padding: 8px; "
+            "border-top-left-radius: 10px; border-top-right-radius: 10px; "
+            "border: 1px solid #E2E8F0; border-bottom: none;"
+        )
+
+        kpi_value.setStyleSheet(
+            f"background-color: {Color.FIRST}; color: #FFFFFF; "
+            "font-size: 18px; font-weight: bold; padding: 8px; "
+            "border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; "
+            f"border: 1px solid {Color.FIRST};"
+        )
+
         kpi_widget = col(
             kpi_label,
             kpi_value,
+            spacing=0
         )
-        kpi_widget.setFixedWidth(170)
+        kpi_widget.setFixedWidth(200)
         kpi_widgets.append(kpi_widget)
 
-    widget = row(*kpi_widgets, alignment=CENTER, left_stretch=True, right_stretch=True, margin=Margin(all=10))
-
-    set_style(widget, Style(
-        font_size="20px",
-    ))
+    widget = row(*kpi_widgets, alignment=CENTER, left_stretch=True, right_stretch=True, spacing=15, margin=Margin(all=10))
 
     logger.debug(f"ℹ️  Created widget: {widget}")
 
