@@ -33,25 +33,25 @@ def plot(
     sns.set_theme(
         style="whitegrid",
         rc={
-            "figure.facecolor": "#FFFFFF",
-            "axes.facecolor": "#FFFFFF",
-            "axes.edgecolor": "#E2E8F0",
-            "grid.color": "#F1F5F9",
+            "figure.facecolor": "#1E293B",
+            "axes.facecolor": "#1E293B",
+            "axes.edgecolor": "#334155",
+            "grid.color": "#283548",
             "grid.linestyle": "--",
-            "text.color": "#1E293B",
-            "axes.labelcolor": "#475569",
-            "xtick.color": "#64748B",
-            "ytick.color": "#64748B",
+            "text.color": "#F8FAFC",
+            "axes.labelcolor": "#94A3B8",
+            "xtick.color": "#94A3B8",
+            "ytick.color": "#94A3B8",
             "font.sans-serif": ["Segoe UI", "DejaVu Sans", "Arial"],
         }
     )
 
     fig = Figure(dpi=100)
-    fig.patch.set_facecolor("#FFFFFF")
+    fig.patch.set_facecolor("#1E293B")
     ax = fig.add_subplot(111)
 
     if title:
-        ax.set_title(title, fontsize=12, fontweight="bold", color="#00465C", pad=10)
+        ax.set_title(title, fontsize=12, fontweight="bold", color="#38BDF8", pad=10)
 
     plot_kwargs = {'ax': ax}
     if data is not None:

@@ -18,33 +18,36 @@ def main():
         QWidget {
             font-family: 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif;
             font-size: 14px;
-            color: #1E293B;
+            color: #F8FAFC;
         }
         QMainWindow {
-            background-color: #F1F5F9;
+            background-color: #0F172A;
         }
         QTabWidget::pane {
-            border: 1px solid #CBD5E1;
-            background-color: #FFFFFF;
+            border: 1px solid #334155;
+            background-color: #1E293B;
             border-radius: 8px;
             top: -1px;
         }
         QTabBar::tab {
-            background-color: #E2E8F0;
-            color: #475569;
+            background-color: #1E293B;
+            color: #94A3B8;
             padding: 10px 24px;
             margin-right: 4px;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
             font-weight: 600;
+            border: 1px solid #334155;
+            border-bottom: none;
         }
         QTabBar::tab:selected {
-            background-color: #0097C5;
+            background-color: #0284C7;
             color: #FFFFFF;
+            border-color: #0284C7;
         }
         QTabBar::tab:hover:!selected {
-            background-color: #CBD5E1;
-            color: #1E293B;
+            background-color: #334155;
+            color: #F8FAFC;
         }
         QScrollArea {
             border: none;
@@ -52,6 +55,23 @@ def main():
         }
         QScrollArea > QWidget > QWidget {
             background-color: transparent;
+        }
+        QScrollBar:vertical {
+            background-color: #0F172A;
+            width: 10px;
+            margin: 0px;
+            border-radius: 5px;
+        }
+        QScrollBar::handle:vertical {
+            background-color: #334155;
+            min-height: 20px;
+            border-radius: 5px;
+        }
+        QScrollBar::handle:vertical:hover {
+            background-color: #475569;
+        }
+        QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+            height: 0px;
         }
     """)
 

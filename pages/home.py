@@ -11,9 +11,9 @@ def create_card_container(title: str, widget_content: qw.QWidget, subtitle: str 
     card = qw.QFrame()
     card.setStyleSheet("""
         QFrame {
-            background-color: #FFFFFF;
+            background-color: #1E293B;
             border-radius: 12px;
-            border: 1px solid #E2E8F0;
+            border: 1px solid #334155;
         }
     """)
     card.setSizePolicy(qw.QSizePolicy.Expanding, qw.QSizePolicy.Expanding)
@@ -23,12 +23,12 @@ def create_card_container(title: str, widget_content: qw.QWidget, subtitle: str 
     header_layout.setSpacing(2)
 
     title_label = qw.QLabel(title)
-    title_label.setStyleSheet("font-size: 15px; font-weight: 700; color: #00465C; border: none;")
+    title_label.setStyleSheet("font-size: 15px; font-weight: 700; color: #38BDF8; border: none; background: transparent;")
     header_layout.addWidget(title_label)
 
     if subtitle:
         sub_label = qw.QLabel(subtitle)
-        sub_label.setStyleSheet("font-size: 11px; color: #64748B; border: none;")
+        sub_label.setStyleSheet("font-size: 11px; color: #94A3B8; border: none; background: transparent;")
         header_layout.addWidget(sub_label)
 
     content_layout = qw.QVBoxLayout()

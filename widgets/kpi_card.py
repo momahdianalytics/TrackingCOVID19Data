@@ -22,17 +22,17 @@ def kpi_card(data: tuple) -> qw.QWidget:
         kpi_value = qw.QLabel(value_text, alignment=CENTER)
 
         kpi_label.setStyleSheet(
-            "background-color: #FFFFFF; color: #475569; "
+            "background-color: #1E293B; color: #94A3B8; "
             "font-size: 13px; font-weight: 600; padding: 8px; "
             "border-top-left-radius: 10px; border-top-right-radius: 10px; "
-            "border: 1px solid #E2E8F0; border-bottom: none;"
+            "border: 1px solid #334155; border-bottom: none;"
         )
 
         kpi_value.setStyleSheet(
-            f"background-color: {Color.FIRST}; color: #FFFFFF; "
+            "background-color: #0F172A; color: #38BDF8; "
             "font-size: 18px; font-weight: bold; padding: 8px; "
             "border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; "
-            f"border: 1px solid {Color.FIRST};"
+            "border: 1px solid #334155;"
         )
 
         kpi_widget = col(

@@ -50,20 +50,21 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
 
     tbl.setStyleSheet("""
         QTableWidget {
-            background-color: #FFFFFF;
-            alternate-background-color: #F8FAFC;
-            border: 1px solid #E2E8F0;
+            background-color: #1E293B;
+            alternate-background-color: #162032;
+            border: 1px solid #334155;
             border-radius: 8px;
-            color: #1E293B;
+            color: #F8FAFC;
             font-size: 13px;
-            selection-background-color: #E0F2FE;
-            selection-color: #0369A1;
+            selection-background-color: #0369A1;
+            selection-color: #FFFFFF;
         }
         QHeaderView::section {
-            background-color: #00465C;
-            color: #FFFFFF;
+            background-color: #0F172A;
+            color: #38BDF8;
             padding: 8px 10px;
             border: none;
+            border-bottom: 1px solid #334155;
             font-weight: bold;
             font-size: 12px;
         }
