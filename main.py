@@ -14,68 +14,114 @@ def main():
     app = qw.QApplication([])
     app.setStyle("Fusion")
 
-    app.setStyleSheet("""
-        QWidget {
-            font-family: 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            color: #F8FAFC;
-        }
-        QMainWindow {
-            background-color: #0F172A;
-        }
-        QTabWidget::pane {
-            border: 1px solid #334155;
-            background-color: #1E293B;
-            border-radius: 8px;
-            top: -1px;
-        }
-        QTabBar::tab {
-            background-color: #1E293B;
-            color: #94A3B8;
-            padding: 10px 24px;
-            margin-right: 4px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            font-weight: 600;
-            border: 1px solid #334155;
-            border-bottom: none;
-        }
-        QTabBar::tab:selected {
-            background-color: #0284C7;
-            color: #FFFFFF;
-            border-color: #0284C7;
-        }
-        QTabBar::tab:hover:!selected {
-            background-color: #334155;
-            color: #F8FAFC;
-        }
-        QScrollArea {
-            border: none;
-            background-color: transparent;
-        }
-        QScrollArea > QWidget > QWidget {
-            background-color: transparent;
-        }
-        QScrollBar:vertical {
-            background-color: #0F172A;
-            width: 10px;
-            margin: 0px;
-            border-radius: 5px;
-        }
-        QScrollBar::handle:vertical {
-            background-color: #334155;
-            min-height: 20px;
-            border-radius: 5px;
-        }
-        QScrollBar::handle:vertical:hover {
-            background-color: #475569;
-        }
-        QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-            height: 0px;
-        }
-    """)
+    set_style(
+        app,
+        Rule(
+            'QWidget',
+            Style(
+                font_family="'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif",
+                font_size='14px',
+                color=Color.FIRST,
+            ),
+        ),
+
+        Rule(
+            'QTabWidget::pane',
+            Style(
+                border=f'1px solid {Color.THIRD}',
+                background_color=Color.FOURTH,
+                border_radius='8px',
+                top='-1px',
+            ),
+        ),
+
+        Rule(
+            'QTabBar::tab',
+            Style(
+                background_color=Color.FOURTH,
+                color=Color.FIFTH,
+                padding='10px 24px',
+                margin_right='4px',
+                border_top_left_radius='8px',
+                border_top_right_radius='8px',
+                font_weight='600',
+                border=f'1px solid {Color.THIRD}',
+                border_bottom='none',
+            ),
+        ),
+
+        Rule(
+            'QTabBar::tab:selected',
+            Style(
+                background_color='#0284C7',
+                color='#FFFFFF',
+                border_color='#0284C7',
+            ),
+        ),
+
+        Rule(
+            'QTabBar::tab:hover:!selected',
+            Style(
+                background_color='#334155',
+                color='#F8FAFC',
+            ),
+        ),
+
+        Rule(
+            'QScrollArea',
+            Style(
+                border='none',
+                background_color='transparent',
+            ),
+        ),
+
+        Rule(
+            'QScrollArea > QWidget > QWidget',
+            Style(
+                background_color='transparent',
+            ),
+        ),
+
+        Rule(
+            'QScrollBar:vertical',
+            Style(
+                background_color='#0F172A',
+                width='10px',
+                margin='0px',
+                border_radius='5px',
+            ),
+        ),
+
+        Rule(
+            'QScrollBar::handle:vertical',
+            Style(
+                background_color='#334155',
+                min_height='20px',
+                border_radius='5px',
+            ),
+        ),
+
+        Rule(
+            'QScrollBar::handle:vertical:hover',
+            Style(
+                background_color='#475569',
+            ),
+        ),
+
+        Rule(
+            'QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical',
+            Style(
+                height='0px',
+            ),
+        ),
+    )
+
 
     window = qw.QMainWindow()
+
+    set_style(window, Style(
+        background_color=Color.SECOND,
+    ))
 
     logger.add("logs/main.log", level="DEBUG", rotation="1 MB", encoding="utf-8", enqueue=True)
 
