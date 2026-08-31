@@ -12,15 +12,14 @@ from df import df
 @logger.catch
 def main():
     app = qw.QApplication([])
+    window = qw.QMainWindow()
 
     logger.add("logs/main.log", level="DEBUG", rotation="1 MB", encoding="utf-8", enqueue=True)
-
 
     tabs = qw.QTabWidget()
     tabs.addTab(home(), "Home")
 
-
-    widget = wg.col(
+    central_widget = wg.col(
         wg.kpi_card((
             {"label": "😷 \nTotal Confirmed", "value": df["Confirmed"].sum()},
             {"label": "💀 \nTotal Deaths", "value": df["Deaths"].sum()},
@@ -30,8 +29,10 @@ def main():
         tabs,
     )
 
-    widget.resize(800, 600)
-    widget.show()
+    window.setCentralWidget(central_widget)
+
+    window.resize(800, 600)
+    window.show()
 
     sys.exit(app.exec())
 

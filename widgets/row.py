@@ -3,7 +3,7 @@ from loguru import logger
 
 
 @logger.catch
-def row(*args, alignment=None, left_stretch=None, right_stretch=None, spacing=None, margin=None) -> qw.QWidget:
+def row(*args, alignment=None, left_stretch=None, right_stretch=None, spacing=None, margin=None, scrollable=False) -> qw.QWidget:
 
     layout = qw.QHBoxLayout()
     widget = qw.QWidget()
@@ -35,7 +35,15 @@ def row(*args, alignment=None, left_stretch=None, right_stretch=None, spacing=No
         else:
             widget.setContentsMargins(*margin)
 
-    logger.debug(f"ℹ️  Created widget: {widget} with layout: {layout}")
-    
-    return widget
+    if scrollable:
+        # Previously this built a QScrollArea and then discarded it by
+        # returning `widget` unchanged, so `scrollable=True` did nothing.
+        scroll_area = qw.QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_area.setWidget(widget)
+        logger.debug(f"ℹ️  Created scrollable widget: {scroll_area} wrapping {widget}")
+        return scroll_area
 
+    logger.debug(f"ℹ️  Created widget: {widget} with layout: {layout}")
+
+    return widget
