@@ -6,6 +6,7 @@ import seaborn as sns
 from loguru import logger
 
 from .col import col
+from utils import *
 
 
 def _human_format(num, pos):
@@ -33,25 +34,25 @@ def plot(
     sns.set_theme(
         style="whitegrid",
         rc={
-            "figure.facecolor": "#1E293B",
-            "axes.facecolor": "#1E293B",
-            "axes.edgecolor": "#334155",
-            "grid.color": "#283548",
+            "figure.facecolor": Color.TEN,
+            "axes.facecolor": Color.FOUR,
+            "axes.edgecolor": Color.THREE,
+            "grid.color": Color.ELEVEN,
             "grid.linestyle": "--",
-            "text.color": "#F8FAFC",
-            "axes.labelcolor": "#94A3B8",
-            "xtick.color": "#94A3B8",
-            "ytick.color": "#94A3B8",
+            "text.color": Color.ONE,
+            "axes.labelcolor": Color.FIFE,
+            "xtick.color": Color.FIFE,
+            "ytick.color": Color.FIFE,
             "font.sans-serif": ["Segoe UI", "DejaVu Sans", "Arial"],
         }
     )
 
     fig = Figure(dpi=100)
-    fig.patch.set_facecolor("#1E293B")
+    fig.patch.set_facecolor(Color.FOUR)
     ax = fig.add_subplot(111)
 
     if title:
-        ax.set_title(title, fontsize=12, fontweight="bold", color="#38BDF8", pad=10)
+        ax.set_title(title, fontsize=12, fontweight="bold", color=Color.NINE, pad=10)
 
     plot_kwargs = {'ax': ax}
     if data is not None:

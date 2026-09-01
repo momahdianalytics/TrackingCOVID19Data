@@ -79,24 +79,24 @@ def table(data: pd.DataFrame | pd.Series, size=None) -> qw.QTableWidget:
     set_style(
         tbl,
         Style(
-            background_color="#1E293B",
-            alternate_background_color="#162032",
-            border="1px solid #334155",
+            background_color=Color.FOUR,
+            alternate_background_color=Color.TWELFE,
+            border=f"1px solid {Color.THREE}",
             border_radius="8px",
-            color="#F8FAFC",
+            color=Color.ONE,
             font_size="13px",
-            selection_background_color="#0369A1",
-            selection_color="#FFFFFF",
+            selection_background_color=Color.THIRDTEEN,
+            selection_color=Color.SEVEN,
         ),
 
         Rule(
             "QHeaderView::section",
             Style(
-                background_color="#0F172A",
-                color="#38BDF8",
+                background_color=Color.TOW,
+                color=Color.NINE,
                 padding="8px 10px",
                 border="none",
-                border_bottom="1px solid #334155",
+                border_bottom=F"1px solid {Color.THREE}",
                 font_weight="bold",
                 font_size="12px",
             ),

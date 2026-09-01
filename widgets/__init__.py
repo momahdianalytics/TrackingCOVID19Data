@@ -6,4 +6,4 @@ from .row import *
 from .kpi_card import *
 from .table_plot import *
 from .card import *
-
+from .tab import *

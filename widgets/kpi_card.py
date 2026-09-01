@@ -32,8 +32,8 @@ def kpi_card(data: tuple) -> qw.QWidget:
         set_style(
             kpi_label,
             Style(
-                background_color="#1E293B",
-                color="#94A3B8",
+                background_color=Color.FOUR,
+                color=Color.FIFE,
                 font_size="13px",
                 font_weight="600",
                 padding="8px",
@@ -47,8 +47,8 @@ def kpi_card(data: tuple) -> qw.QWidget:
         set_style(
             kpi_value,
             Style(
-                background_color="#0F172A",
-                color="#38BDF8",
+                background_color=Color.TOW,
+                color=Color.NINE,
                 font_size="18px",
                 font_weight="bold",
                 padding="8px",

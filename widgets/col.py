@@ -5,7 +5,7 @@ from utils import *
 
 
 @logger.catch
-def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin: Margin = None, scrollable=False, parent=None, size_policy=None) -> qw.QWidget:
+def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=None, margin: Margin = None, scrollable=False, parent=None, size_policy=None, scroll_bar_style=None, scroll_bar_handle_style=None, scroll_bar_handle_hover_style=None) -> qw.QWidget:
 
     if parent:
         widget = parent
@@ -54,6 +54,19 @@ def col(*args, alignment=None, top_stretch=None, bottom_stretch=None, spacing=No
         scroll_area.setWidgetResizable(True)
         scroll_area.setWidget(widget)
         logger.debug(f"ℹ️  Created scrollable widget: {scroll_area} wrapping {widget}")
+        set_style(scroll_area, 
+            Rule('QScrollBar:vertical', scroll_bar_style),
+            Rule('QScrollBar::handle:vertical', scroll_bar_handle_style),
+            Rule('QScrollBar::handle:vertical:hover', scroll_bar_handle_hover_style),
+            Rule('QScrollArea', Style(
+                border='none',
+                background_color='transparent',
+            )),
+            Rule(
+                'QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical', Style(
+                height='0px',
+            )),
+        )
         return scroll_area
 
     logger.debug(f"ℹ️  Created widget: {widget} with layout: {layout}")

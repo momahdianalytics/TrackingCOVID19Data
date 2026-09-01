@@ -82,6 +82,20 @@ def tab_1():
         spacing=16,
         margin=Margin(all=12),
         scrollable=True,
+        scroll_bar_style=Style(
+            background_color=Color.TOW,
+            width='10px',
+            margin='0px',
+            border_radius='5px',
+        ),
+        scroll_bar_handle_style=Style(
+            background_color=Color.THREE,
+            min_height='20px',
+            border_radius='5px',
+        ),
+        scroll_bar_handle_hover_style=Style(
+            background_color=Color.EIGHT,
+        ),
     )
 
     return widget

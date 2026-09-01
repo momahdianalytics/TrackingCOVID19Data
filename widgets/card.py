@@ -16,9 +16,9 @@ def card(
     set_style(
         crad_frame,
         Style(
-            background_color="#1E293B",
+            background_color=Color.FOUR,
             border_radius="12px",
-            border="1px solid #334155",
+            border=f"1px solid {Color.THREE}",
         ),
     )
 
@@ -34,7 +34,7 @@ def card(
     set_style(title_label, Style(
         font_size="15px",
         font_weight="700",
-        color="#38BDF8",
+        color=Color.NINE,
         border="none",
         background_color="transparent",
     ))
@@ -46,7 +46,7 @@ def card(
             sub_label,
             Style(
                 font_size="11px",
-                color="#94A3B8",
+                color=Color.FIFE,
                 border="none",
                 background_color="transparent",
             ),

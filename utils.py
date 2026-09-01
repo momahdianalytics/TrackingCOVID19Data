@@ -23,11 +23,19 @@ Size = qw.QSizePolicy.Policy
 
 
 class Color:
-    FIRST = "#F8FAFC"
-    SECOND = "#0F172A"
-    THIRD = "#334155"
-    FOURTH = "#1E293B"
-    FIFTH = "#94A3B8"
+    ONE = "#F8FAFC"
+    TOW = "#0F172A"
+    THREE = "#334155"
+    FOUR = "#1E293B"
+    FIFE = "#94A3B8"
+    SIX = "#0284C7"
+    SEVEN = "#FFFFFF"
+    EIGHT = "#475569"
+    NINE = "#38BDF8"
+    TEN = "#1E293B"
+    ELEVEN = "#283548"
+    TWELFE = "#162032"
+    THIRDTEEN = "#0369A1"
 
 
 @dataclass
